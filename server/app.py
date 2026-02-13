@@ -127,69 +127,42 @@ def generate_cards(outcome):
         
         prompt = """당신은 Understanding by Design 원칙을 따르는 교육 설계 전문가입니다.
 
-Learning Outcome:
+## 당신의 임무
+주어진 Learning Outcome을 분석하고, 이 학습 목표를 달성하기 위한 Sourcebook 카드 10개를 생성하세요.
+
+## Learning Outcome:
 {0}
 
-이를 기반으로 Sourcebook 카드 10개를 생성하세요.
+## 핵심 원칙
+1. **모든 카드는 위 Learning Outcome에 직접적으로 연결**되어야 합니다. 관련 없는 주제를 포함하지 마세요.
+2. 카드는 '지식'이 아니라 '지식으로 향하는 좌표'입니다 — 학습자가 스스로 탐색하도록 돕는 최소한의 단서를 제공하세요.
+3. 각 카드는 Learning Outcome의 서로 다른 측면을 다뤄야 합니다 (중복 금지).
 
-**STRATEGY: Learning Outcome에 맞게 구체적 예제를 선택하되, Wikimedia에 풍부한 자료가 있는 것들만 선택하세요.**
+## 카드 설계 프로세스
+각 카드를 만들 때 다음 순서를 따르세요:
 
-🎯 주제별 추천 자료 (Wikimedia 풍부함):
+**Step 1: Learning Outcome에서 핵심 개념 추출**
+- 이 Outcome이 요구하는 지식, 기술, 태도를 파악하세요.
 
-【그래픽 디자인 & 시각 문화】
-- 유명 그래픽 디자이너: Josef Müller-Brockmann (스위스 스타일), Saul Bass (영화 포스터), Toulouse-Lautrec (포스터 미술), Shepard Fairey (포스터 아트)
-- 역사적 포스터 무브먼트: Art Deco 포스터, Bauhaus, Swiss Design, Russian Constructivism
-- 인쇄술과 타이포그래피 역사: Gutenberg printing, 초기 신문 디자인, 책 표지 진화
-- 시각적 아이덴티티: 유명 로고 역사 (IBM logo 1956, Mercedes logo, Apple logo 1977)
+**Step 2: 원천 증거 (Primary Evidence) 선택**
+- 해당 개념을 증명하는 역사적/실제 사례를 찾으세요.
+- Wikimedia Commons에서 검색 가능한 구체적인 인물, 사건, 작품, 도구를 선택하세요.
+- imageSearchKeyword는 영어로, 구체적인 고유명사를 포함하세요 (예: "Alexander Graham Bell telephone 1876", "DNA double helix Watson Crick").
 
-【조형 요소 & 시각 원리】
-- 점 expressionism: Pointillism (조르주 쇠라), Halftone printing 역사
-- 선의 역할: Art Nouveau 선의 흐름, Contour line drawing, Sketch 예제
-- 면과 형태: Cubism (피카소, 브라크), 기하학적 추상미술
-- 색채 이론: Bauhaus 색채론, 인상주의 색채 사용
-- 공간과 구성: 건축 설계도, 인쇄 레이아웃, 신문 편집
+**Step 3: 핵심 질문 (Essential Question) 설계**
+- 단순 정보 검색이 아닌, 깊은 사고를 유도하는 질문을 만드세요.
+- 원천 증거와 Learning Outcome을 연결하는 질문이어야 합니다.
+- "왜?", "어떻게?", "만약 ~라면?" 형태가 효과적입니다.
 
-【디자인 역사 인물】
-- Alexander Hamilton (초기 미국 신문), Benjamin Franklin (인쇄술 개혁)
-- Oswald Berthold (타이포그래피), Jan Tschichold (모던 타이포그래피)
-- László Moholy-Nagy (Bauhaus, 시각 실험)
+**Step 4: 탐색 큐 (Search Cues) 설계**
+- 학습자가 깊이 탐구할 수 있는 구체적 검색어 3개를 제공하세요.
+- 핵심 키워드, 관련 이론/논문명, 참고 자료 등을 포함하세요.
 
-【역사적 시각 문화】
-- 고대 동전의 초상 디자인 (조형 표현의 역사)
-- Medieval manuscript illumination (색과 선의 사용)
-- 18-19세기 판화 기술 (woodcut, engraving)
-- 영화 포스터 역사 (1920-1960s)
-- 신문 레이아웃 진화
+## 응답 형식
+반드시 아래 JSON 배열 형식으로만 응답하세요. 다른 텍스트를 추가하지 마세요:
+[{{"id": 1, "title": "카드 제목", "coreImage": {{"imageSearchKeyword": "English search keyword with specific names", "source": "Wikimedia Commons", "caption": "한 줄 설명"}}, "essentialQuestion": "핵심 질문", "searchCues": ["탐색큐1", "탐색큐2", "탐색큐3"]}}]
 
-【기술과 조형】
-- 카메라의 역사 (뷰파인더, 프레이밍)
-- 인쇄 기술 발전 (Gutenberg → Linotype → Offset printing)
-- 컴퓨터 그래픽 역사 (초기 벡터 그래픽 소프트웨어)
-
-각 카드는 다음 3가지를 포함해야 합니다:
-
-1. 핵심 자료 (Core Material) - Learning Outcome과 관련된 구체적 예제
-   - imageSearchKeyword: 위 목록에서 선택한 구체적 역사 주제 (예: "Bauhaus color theory", "Josef Müller-Brockmann Swiss Design", "Saul Bass movie poster", "Toulouse-Lautrec Art Nouveau", "Pointillism Georges Seurat", "Gutenberg printing press")
-   - source: Wikimedia Commons
-   - caption: 한 줄 설명
-
-2. 핵심질문 (Essential Question)
-   - Learning Outcome의 조형/시각 개념과 구체적 예제를 연결
-   - 학생이 실제로 "보게 되는" 조형 요소에 초점
-   - 추상이 아닌 시각적/물리적 관찰 기반
-   
-   예시 좋은질문:
-   - Toulouse-Lautrec의 포스터에서 "선"이 인물의 특성을 어떻게 표현하는가?
-   - Bauhaus 색채 이론이 오늘날의 UI 디자인에 구체적으로 어떻게 적용되는가?
-   - 신문 레이아웃에서 "공간(여백)"이 정보의 중요도를 어떻게 표현하는가?
-   - Pointillism의 작은 점들이 멀리서 보면 다른 색으로 보이는 것은 왜인가?
-
-3. 탐색큐: 3개의 구체적 검색어
-
-응답은 JSON 배열 형식:
-[{{"id": 1, "title": "제목", "coreImage": {{"imageSearchKeyword": "검색어", "source": "Wikimedia Commons", "caption": "설명"}}, "essentialQuestion": "질문", "searchCues": ["큐1", "큐2", "큐3"]}}]
-
-Learning Outcome의 의도를 정확히 반영한 10개 카드를 생성하세요.""".format(outcome)
+10개 카드를 생성하세요.""".format(outcome)
 
         response = model.generate_content(prompt)
         text = response.text
