@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: sourcebook-generator
+    runtime: python
+    buildCommand: pip install -r server/requirements.txt
+    startCommand: python3 server/app.py
+    envVars:
+      - key: GOOGLE_GEMINI_API_KEY
+        sync: false
+      - key: ENVIRONMENT
+        value: production
+      - key: PORT
+        value: 10000
