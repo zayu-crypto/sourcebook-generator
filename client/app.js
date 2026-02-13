@@ -25,6 +25,66 @@ guideToggle.addEventListener("click", () => {
   guideArrow.classList.toggle("open");
 });
 
+// Refine elements
+const refineBtn = document.getElementById("refineBtn");
+const refineMessage = document.getElementById("refineMessage");
+const refineResult = document.getElementById("refineResult");
+const refinePreview = document.getElementById("refinePreview");
+const refineChanges = document.getElementById("refineChanges");
+const applyRefineBtn = document.getElementById("applyRefineBtn");
+const dismissRefineBtn = document.getElementById("dismissRefineBtn");
+
+let refinedText = "";
+
+refineBtn.addEventListener("click", refineOutcome);
+applyRefineBtn.addEventListener("click", () => {
+  outcomeInput.value = refinedText;
+  refineResult.style.display = "none";
+});
+dismissRefineBtn.addEventListener("click", () => {
+  refineResult.style.display = "none";
+});
+
+async function refineOutcome() {
+  const draft = outcomeInput.value.trim();
+
+  if (!draft) {
+    showError("먼저 Learning Outcome 초안을 입력해주세요.");
+    return;
+  }
+
+  refineBtn.disabled = true;
+  refineMessage.style.display = "flex";
+  refineResult.style.display = "none";
+  errorMessage.style.display = "none";
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/refine-outcome`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ draft }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || "다듬기에 실패했습니다");
+    }
+
+    const data = await response.json();
+    refinedText = data.refined || draft;
+
+    refinePreview.textContent = refinedText;
+    refineChanges.textContent = data.changes || "";
+    refineResult.style.display = "block";
+    refineResult.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  } catch (error) {
+    showError(error.message);
+  } finally {
+    refineBtn.disabled = false;
+    refineMessage.style.display = "none";
+  }
+}
+
 // Event Listeners
 generateBtn.addEventListener("click", generateCards);
 exportPdfBtn.addEventListener("click", exportToPDF);

@@ -12,7 +12,7 @@
     <!-- Header -->
     <header class="header">
       <h1>📚 Sourcebook Generator</h1>
-      <p class="subtitle">Learning Outcome을 입력하면 카드 10개를 자동생성합니다</p>
+      <p class="subtitle">Learning Outcome을 입력하면 Sourcebook 카드를 자동생성합니다</p>
     </header>
 
     <!-- Main Content -->
@@ -63,7 +63,24 @@
           placeholder="[주제 영역]&#10;예: 컴퓨터-인간 상호작용에 대한 기본 이해력&#10;&#10;[도달 목표]&#10;예: 컴퓨터와 인간의 상호작용 과정을 이해하고, 디지털 제품이 작동하는 기본적인 원리와 지식을 안다.&#10;&#10;[구체적 범위]&#10;예: 인간에 대한 이해, 입출력장치, UI/UX 컴포넌트. 새로운 매체의 입출력 장치 특성(햅틱 엔진, AR Glass 등)"
           rows="10"
         ></textarea>
-        <button id="generateBtn" class="btn btn-primary">카드 생성 (10개)</button>
+        <div class="button-row">
+          <button id="refineBtn" class="btn btn-refine">Outcome 다듬기</button>
+          <button id="generateBtn" class="btn btn-primary">카드 생성 (10개)</button>
+        </div>
+        <div id="refineMessage" class="refine-message" style="display: none;">
+          <span class="spinner"></span> AI가 Outcome을 분석하고 있습니다...
+        </div>
+        <div id="refineResult" class="refine-result" style="display: none;">
+          <div class="refine-result-header">
+            <span class="refine-result-label">AI 추천 개선안</span>
+            <span id="refineChanges" class="refine-changes"></span>
+          </div>
+          <div id="refinePreview" class="refine-preview"></div>
+          <div class="refine-actions">
+            <button id="applyRefineBtn" class="btn btn-apply">적용하기</button>
+            <button id="dismissRefineBtn" class="btn btn-dismiss">무시</button>
+          </div>
+        </div>
         <div id="loadingMessage" class="loading-message" style="display: none;">
           <span class="spinner"></span> 카드를 생성 중입니다... (약 30초 소요)
         </div>

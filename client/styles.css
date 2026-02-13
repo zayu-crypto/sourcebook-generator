@@ -253,6 +253,126 @@ body {
   color: var(--text-tertiary);
 }
 
+/* Button Row */
+.button-row {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+
+.button-row .btn-primary {
+  flex: 2;
+  margin-top: 0;
+}
+
+.button-row .btn-refine {
+  flex: 1;
+}
+
+/* Refine Button */
+.btn-refine {
+  background: var(--surface-base);
+  color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
+  padding: 12px 20px;
+}
+
+.btn-refine:hover:not(:disabled) {
+  background: #f0f4ff;
+}
+
+.btn-refine:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Refine Message */
+.refine-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  background: #f0f4ff;
+  border-left: 3px solid var(--brand-primary);
+  border-radius: var(--radius-small);
+  color: var(--brand-primary);
+  font-weight: 500;
+  font-size: 0.9em;
+  margin-top: var(--space-12);
+}
+
+/* Refine Result */
+.refine-result {
+  margin-top: var(--space-12);
+  border: 1px solid #10b981;
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  background: var(--surface-base);
+}
+
+.refine-result-header {
+  padding: var(--space-12) var(--space-16);
+  background: rgba(16, 185, 129, 0.06);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.refine-result-label {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #10b981;
+}
+
+.refine-changes {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.refine-preview {
+  padding: var(--space-16);
+  font-size: 0.9em;
+  line-height: 1.7;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+}
+
+.refine-actions {
+  display: flex;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  border-top: 1px solid var(--border-default);
+  background: var(--surface-secondary);
+}
+
+.btn-apply {
+  background: #10b981;
+  color: white;
+  border: 1px solid #10b981;
+  padding: 8px 16px;
+  font-size: 0.85em;
+}
+
+.btn-apply:hover {
+  background: #059669;
+}
+
+.btn-dismiss {
+  background: var(--surface-base);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+  padding: 8px 16px;
+  font-size: 0.85em;
+}
+
+.btn-dismiss:hover {
+  background: var(--surface-secondary);
+}
+
 /* Buttons */
 .btn {
   padding: 10px 16px;
@@ -621,6 +741,10 @@ body {
   }
 
   .button-group {
+    flex-direction: column;
+  }
+
+  .button-row {
     flex-direction: column;
   }
 }

@@ -251,6 +251,70 @@ def api_generate_cards():
         print(f"Server error: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/refine-outcome', methods=['POST'])
+def api_refine_outcome():
+    """API endpoint to refine a draft Learning Outcome"""
+    try:
+        data = request.get_json()
+        draft = data.get('draft', '').strip()
+
+        if not draft:
+            return jsonify({'error': 'Learning Outcome 초안이 필요합니다'}), 400
+
+        try:
+            models = genai.list_models()
+            available_models = [m.name for m in models if 'generateContent' in m.supported_generation_methods]
+            model_name = available_models[0] if available_models else 'models/gemini-2.0-flash'
+            model_name = model_name.replace('models/', '')
+        except:
+            model_name = 'gemini-2.0-flash'
+
+        model = genai.GenerativeModel(model_name)
+
+        prompt = """당신은 교육 설계 전문가입니다. 사용자가 작성한 Learning Outcome 초안을 분석하고, 더 좋은 Sourcebook 카드를 생성할 수 있도록 구체화해주세요.
+
+## 사용자의 초안:
+{0}
+
+## 당신의 역할
+초안을 바탕으로 아래 3가지를 보강한 개선된 Learning Outcome을 작성하세요:
+
+1. **주제 영역**: 초안에서 다루는 핵심 분야를 명확히
+2. **도달 목표**: "~를 이해한다", "~를 설명할 수 있다", "~를 제안할 수 있다" 등 구체적 행동 동사로 표현
+3. **구체적 범위**: 초안에서 암시된 하위 주제, 키워드, 개념을 명시적으로 나열
+
+## 규칙
+- 초안의 원래 의도를 벗어나지 마세요. 새로운 주제를 추가하지 마세요.
+- 초안이 이미 충분히 구체적이면 크게 바꾸지 마세요.
+- 자연스러운 문장으로 작성하세요 (항목 나열 X, 문단 형태 O).
+- 한국어로 작성하세요.
+
+## 응답 형식
+반드시 아래 JSON 형식으로만 응답하세요:
+{{"refined": "개선된 Learning Outcome 전체 텍스트", "changes": "무엇을 보강했는지 한 줄 설명"}}""".format(draft)
+
+        response = model.generate_content(prompt)
+        text = response.text
+
+        json_str = None
+        json_match = re.search(r'```json\n([\s\S]*?)\n```', text)
+        if json_match:
+            json_str = json_match.group(1)
+        else:
+            json_match = re.search(r'\{[\s\S]*\}', text)
+            if json_match:
+                json_str = json_match.group(0)
+            else:
+                raise ValueError("Could not extract JSON from response")
+
+        result = json.loads(json_str)
+        return jsonify(result), 200
+
+    except Exception as e:
+        print(f"Refine error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/api/health', methods=['GET'])
 def health():
     """Health check endpoint"""
