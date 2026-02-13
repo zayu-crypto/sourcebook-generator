@@ -11,11 +11,7 @@ import google.generativeai as genai
 # Load environment variables
 load_dotenv()
 
-# Get client folder path (handles both local dev and deployment)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CLIENT_DIR = os.path.join(BASE_DIR, 'client')
-
-app = Flask(__name__, static_folder=CLIENT_DIR, static_url_path='')
+app = Flask(__name__)
 CORS(app)
 
 # Configure Google Generative AI
@@ -287,40 +283,37 @@ def health():
     """Health check endpoint"""
     return jsonify({'status': 'Server is running'}), 200
 
+
+# Serve frontend static files when deployed as a single app
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CLIENT_DIR = os.path.join(BASE_DIR, 'client')
+
 @app.route('/')
 def serve_index():
-    """Serve index.html for root path"""
-    print(f"📄 Serving index.html from {CLIENT_DIR}")
     return send_from_directory(CLIENT_DIR, 'index.html')
 
 @app.route('/<path:filename>')
 def serve_static(filename):
-    """Serve static files (CSS, JS, etc.)"""
     filepath = os.path.join(CLIENT_DIR, filename)
     if os.path.exists(filepath):
-        print(f"📦 Serving {filename}")
         return send_from_directory(CLIENT_DIR, filename)
-    print(f"❌ File not found: {filepath}")
-    return {'error': 'File not found'}, 404
+    return jsonify({'error': 'File not found'}), 404
+
 
 if __name__ == '__main__':
     print("🚀 Sourcebook Generator Server starting...")
-    
-    # Get port from environment variable (for deployment) or use default
+
     port = int(os.environ.get('PORT', 5000))
     is_production = os.environ.get('ENVIRONMENT', 'development') == 'production'
-    
+
     if is_production:
         print(f"📡 Production mode - running on port {port}")
     else:
-        print(f"📡 Development mode - available at http://localhost:{port}")
+        print(f"📡 Development mode - running on http://localhost:{port}")
         print("\n다음 단계:")
-        print("1. Google Gemini API Key가 .env 파일에 설정되어 있는지 확인하세요")
+        print("1. 환경변수 GOOGLE_GEMINI_API_KEY가 설정되어 있는지 확인하세요")
         print("2. 브라우저에서 http://localhost:" + str(port) + "를 열어주세요")
         print("\n종료하려면: Ctrl+C 를 누르세요\n")
-    
-    app.run(
-        debug=not is_production,
-        port=port,
-        host='0.0.0.0'  # Listen on all interfaces for deployment
-    )
+
+    # In deployment environments the platform will provide PORT and listen on 0.0.0.0
+    app.run(debug=not is_production, port=port, host='0.0.0.0')
