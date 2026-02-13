@@ -170,7 +170,7 @@ function createCardElement(card, cardNumber) {
         <div class="card-section">
           <div class="card-label">핵심 자료 (Core Material)</div>
           ${caption ? `<div class="card-content">${escapeHtml(caption)}</div>` : ""}
-          ${source ? `<div class="card-source">📸 출처: ${escapeHtml(source)}</div>` : ""}
+          ${source ? `<div class="card-source">출처: ${escapeHtml(source)}</div>` : ""}
         </div>
       </div>
     `;
@@ -272,24 +272,23 @@ function generatePDFContent(cards) {
   const outcome = outcomeInput.value;
   let html = `
     <style>
-      body { font-family: Arial, sans-serif; color: #333; }
-      h1 { color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
-      h2 { color: #333; margin-top: 30px; margin-bottom: 15px; }
-      .card { page-break-inside: avoid; border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
-      .card-number { background: #f3f4f6; color: #667eea; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: 600; margin-bottom: 12px; display: inline-block; }
-      .card-title { font-size: 1.2em; font-weight: bold; margin-bottom: 15px; }
+      body { font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif; color: #222; }
+      h1 { color: #222; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-weight: 600; }
+      .card { page-break-inside: avoid; border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 20px; border-radius: 6px; }
+      .card-number { color: #999; font-size: 0.78em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; display: block; }
+      .card-title { font-size: 1.1em; font-weight: 600; margin-bottom: 15px; color: #222; }
       .section { margin-bottom: 12px; }
-      .label { font-size: 0.9em; font-weight: bold; color: #667eea; text-transform: uppercase; margin-bottom: 4px; }
-      .content { font-size: 0.95em; color: #666; line-height: 1.5; }
-      .cues { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-      .cue-tag { background: #f3f4f6; color: #555; padding: 4px 10px; border-radius: 20px; font-size: 0.85em; }
-      .outcome { background: #f0f4ff; border-left: 4px solid #667eea; padding: 15px; margin-bottom: 30px; }
-      .card-image { max-width: 100%; height: auto; border-radius: 6px; margin: 10px 0; }
-      .card-source { font-size: 0.85em; color: #666; margin-top: 8px; font-style: italic; }
+      .label { font-size: 0.78em; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+      .content { font-size: 0.9em; color: #555; line-height: 1.6; }
+      .cues { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+      .cue-tag { background: #f5f5f5; color: #555; padding: 4px 10px; border-radius: 20px; font-size: 0.82em; border: 1px solid #e0e0e0; }
+      .outcome { border-left: 2px solid #222; padding: 15px; margin-bottom: 30px; background: #fafafa; }
+      .card-image { max-width: 100%; height: auto; border-radius: 4px; margin: 10px 0; }
+      .card-source { font-size: 0.78em; color: #999; margin-top: 8px; }
     </style>
-    <h1>📚 Sourcebook</h1>
+    <h1>Sourcebook</h1>
     <div class="outcome">
-      <h3 style="margin-top: 0; color: #667eea;">Learning Outcome</h3>
+      <h3 style="margin-top: 0; color: #222; font-weight: 600;">Learning Outcome</h3>
       <p style="line-height: 1.6; white-space: pre-wrap;">${escapeHtml(outcome)}</p>
     </div>
   `;
@@ -311,7 +310,7 @@ function generatePDFContent(cards) {
           <div class="label">핵심 자료 (Core Material)</div>
           ${imageUrl ? `<img src="${imageUrl}" alt="${caption}" class="card-image" style="max-width: 100%; height: auto;"/>` : ""}
           ${caption ? `<div class="content">${escapeHtml(caption)}</div>` : ""}
-          ${source ? `<div class="card-source">📸 출처: ${escapeHtml(source)}</div>` : ""}
+          ${source ? `<div class="card-source">출처: ${escapeHtml(source)}</div>` : ""}
         </div>
       `;
     } else if (card.primaryEvidence) {
