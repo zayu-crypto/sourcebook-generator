@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Gemini API 키 발급 가이드</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      padding: 40px 20px;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section h2 {
+      font-size: 1.5em;
+      color: #667eea;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .instruction {
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    .step-number {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 35px;
+      font-weight: bold;
+      margin-right: 10px;
+      font-size: 1em;
+    }
+
+    .instruction h3 {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .instruction p {
+      line-height: 1.6;
+      color: #546e7a;
+      margin: 8px 0;
+      margin-left: 45px;
+    }
+
+    .visual-guide {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .visual-guide img {
+      max-width: 100%;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .visual-guide p {
+      margin-top: 12px;
+      font-size: 0.9em;
+      color: #666;
+      font-style: italic;
+    }
+
+    .highlight {
+      background: #fef3c7;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .code-block {
+      background: #1e293b;
+      color: #10b981;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      margin: 15px 0;
+      overflow-x: auto;
+      user-select: all;
+      font-size: 0.9em;
+    }
+
+    .warning {
+      background: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+
+    .warning-title {
+      font-weight: bold;
+      color: #dc2626;
+      margin-bottom: 8px;
+    }
+
+    .success {
+      background: #d1fae5;
+      border-left: 4px solid #10b981;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+
+    .success-title {
+      font-weight: bold;
+      color: #047857;
+      margin-bottom: 8px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .tab {
+      padding: 12px 20px;
+      background: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .tab:hover {
+      color: #667eea;
+    }
+
+    .tab.active {
+      color: #667eea;
+      border-bottom-color: #667eea;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .footer {
+      background: #f9fafb;
+      padding: 20px;
+      text-align: center;
+      color: #999;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .arrow {
+      color: #667eea;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🔑 Google Gemini API 키 발급하기</h1>
+      <p>단계별 상세 가이드</p>
+    </div>
+
+    <div class="content">
+      <!-- 탭 메뉴 -->
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('method1')">📱 방법 1: 쉬운 방법</button>
+        <button class="tab" onclick="showTab('method2')">🔧 방법 2: 상세 설명</button>
+        <button class="tab" onclick="showTab('troubleshoot')">⚠️ 문제 해결</button>
+      </div>
+
+      <!-- 방법 1: 쉬운 방법 -->
+      <div id="method1" class="tab-content active">
+        <div class="section">
+          <h2>방법 1: 가장 쉬운 방법 (권장)</h2>
+
+          <div class="instruction">
+            <h3><span class="step-number">1</span>아래 링크를 클릭하세요</h3>
+            <p>다음 링크를 <span class="highlight">마우스로 클릭</span>하면 자동으로 Google AI Studio가 열립니다:</p>
+            <div style="margin-left: 45px; margin-top: 15px;">
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" style="
+                display: inline-block;
+                background: #667eea;
+                color: white;
+                padding: 15px 30px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 1.1em;
+                transition: all 0.3s;
+              " 
+              onmouseover="this.style.background='#764ba2'" 
+              onmouseout="this.style.background='#667eea'">
+                👉 Google Gemini API 키 페이지 열기
+              </a>
+            </div>
+          </div>
+
+          <div class="instruction">
+            <h3><span class="step-number">2</span>Google 계정으로 로그인</h3>
+            <p>Google 로그인 화면이 나타나면 자신의 <span class="highlight">Google 계정</span>으로 로그인하세요.</p>
+            <p>예) Gmail 주소를 사용하면 됩니다</p>
+          </div>
+
+          <div class="instruction">
+            <h3><span class="step-number">3</span>빨간 버튼 찾기</h3>
+            <p>페이지가 로드되면 화면에 다음 중 하나가 보일 겁니다:</p>
+            
+            <div style="margin-left: 45px; margin-top: 15px;">
+              <div style="background: white; border: 2px solid #e0e0e0; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="font-weight: bold; color: #333; margin-bottom: 10px;">Option A (가장 일반적):</p>
+                <p style="color: #666;">왼쪽 사이드바에 빨간 + 버튼:</p>
+                <div style="background: #f9fafb; padding: 15px; margin-top: 10px; border-radius: 6px; color: #667eea; font-weight: bold;">
+                  + Create new secret key
+                </div>
+              </div>
+
+              <div style="background: white; border: 2px solid #e0e0e0; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="font-weight: bold; color: #333; margin-bottom: 10px;">Option B:</p>
+                <p style="color: #666;">화면 오른쪽 상단의 빨간 버튼:</p>
+                <div style="background: #f9fafb; padding: 15px; margin-top: 10px; border-radius: 6px; color: #ef4444; font-weight: bold;">
+                  🔴 Get API key
+                </div>
+              </div>
+
+              <div style="background: white; border: 2px solid #e0e0e0; padding: 20px; border-radius: 8px;">
+                <p style="font-weight: bold; color: #333; margin-bottom: 10px;">Option C:</p>
+                <p style="color: #666;">프롬프트에 입력한 후 나타나는 옵션:</p>
+                <div style="background: #f9fafb; padding: 15px; margin-top: 10px; border-radius: 6px; color: #3b82f6; font-weight: bold;">
+                  Generate API Key
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="instruction">
+            <h3><span class="step-number">4</span>버튼 클릭</h3>
+            <p>위의 버튼 중 하나를 <span class="highlight">마우스로 클릭</span>하세요.</p>
+          </div>
+
+          <div class="instruction">
+            <h3><span class="step-number">5</span>API 키 복사</h3>
+            <p>새로운 창이 나타나거나, 빨간 박스/파란 박스에 긴 코드가 나타납니다:</p>
+            <div style="margin-left: 45px; margin-top: 15px;">
+              <div style="background: #fff3cd; padding: 15px; border-radius: 6px; border: 2px solid #ffc107;">
+                <p style="color: #856404; font-family: monospace; font-weight: bold; word-break: break-all;">
+                  AIzaSyDx1234567890abcdefghijklmnopqrst...
+                </p>
+              </div>
+              <p style="margin-top: 10px; color: #666;">이 코드가 <span class="highlight">API 키</span>입니다!</p>
+            </div>
+          </div>
+
+          <div class="instruction">
+            <h3><span class="step-number">6</span>코드 전체 선택 & 복사</h3>
+            <p>코드가 있는 상자에 마우스를 올리면 오른쪽에 복사 버튼(📋 아이콘)이 나타납니다.</p>
+            <p style="margin-top: 10px;">혹은, 코드를 마우스로 3번 클릭해서 전체 선택 후 <span class="highlight">Cmd+C</span>로 복사하세요.</p>
+          </div>
+
+          <div class="success">
+            <div class="success-title">✅ 완료!</div>
+            <p>이제 터미널로 넘어가서 3단계를 진행하면 됩니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 방법 2: 상세 설명 -->
+      <div id="method2" class="tab-content">
+        <div class="section">
+          <h2>방법 2: 상세하게 보기</h2>
+
+          <h3 style="margin-top: 20px; margin-bottom: 15px; color: #333;">1️⃣ 주소창에 URL 입력</h3>
+          
+          <div class="instruction">
+            <p>브라우저 위쪽의 <span class="highlight">주소창</span>을 클릭합니다.</p>
+            <div class="visual-guide">
+              <div style="background: #f5f5f5; padding: 20px; border-radius: 6px; text-align: left;">
+                <p style="color: #999;">브라우저 주소창:</p>
+                <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin-top: 8px;">
+                  <code style="color: #667eea;">https://aistudio.google.com/app/apikey</code>
+                </div>
+              </div>
+              <p>위의 주소(URL)를 복사해서 주소창에 붙여넣으세요</p>
+            </div>
+          </div>
+
+          <div class="instruction">
+            <p>또는 다음과 같이 직접 입력할 수 있습니다:</p>
+            <div class="code-block">aistudio.google.com/app/apikey</div>
+            <p style="margin-left: 0;">그 다음 <span class="highlight">Enter</span>를 누릅니다.</p>
+          </div>
+
+          <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">2️⃣ 로그인 화면</h3>
+          
+          <div class="instruction">
+            <p>Google 로그인 화면이 나타납니다.</p>
+            <p style="margin-top: 10px;">Gmail 로그인과 동일합니다.</p>
+            <div class="visual-guide">
+              <div style="background: #f9fafb; padding: 20px; border-radius: 8px;">
+                <p style="color: #667eea; font-weight: bold;">Google 로그인 화면</p>
+                <p style="margin-top: 8px; color: #666;">이메일이나 전화번호: <span class="highlight">Gmail 주소 입력</span></p>
+                <p style="margin-top: 8px; color: #666;">비밀번호: <span class="highlight">Gmail 비밀번호 입력</span></p>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">3️⃣ API 키 페이지</h3>
+          
+          <div class="instruction">
+            <p>로그인하면 "Google AI Studio"라는 페이지가 열립니다.</p>
+            <p style="margin-top: 10px;">이 페이지는 영어로 되어 있습니다. (걱정 마세요, 버튼만 클릭하면 됩니다)</p>
+            
+            <div class="visual-guide">
+              <div style="background: #f9fafb; padding: 20px; border-radius: 8px;">
+                <p style="color: #666;">페이지 제목: <span class="highlight">API keys</span></p>
+                <p style="margin-top: 10px; color: #666;">왼쪽에 "API keys" 또는 "Keys" 메뉴가 있습니다</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">4️⃣ "Create" 또는 "+" 버튼 찾기</h3>
+          
+          <div class="instruction">
+            <p>다음 중 하나를 찾아서 클릭하세요:</p>
+            
+            <div style="margin-left: 0; margin-top: 15px;">
+              <div style="background: #f0f4ff; border: 2px solid #667eea; padding: 15px; border-radius: 6px; margin-bottom: 10px;">
+                <p style="color: #667eea; font-weight: bold;">찾아야 할 버튼:</p>
+                <ul style="margin-top: 10px; margin-left: 20px; color: #333;">
+                  <li>"Create new secret key" ← 이게 있으면 이거 클릭!</li>
+                  <li>"Create API Key"</li>
+                  <li>"Generate API Key"</li>
+                  <li>"+ Create" (빨간 색)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">5️⃣ API 키 확인</h3>
+          
+          <div class="instruction">
+            <p>버튼을 클릭하면 다음 중 하나가 나타납니다:</p>
+            
+            <div style="margin-left: 0; margin-top: 15px;">
+              <p style="font-weight: bold; color: #333; margin-bottom: 10px;">팝업 창에 코드가 나타남:</p>
+              <div style="background: #fff3cd; border: 3px solid #ffc107; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="color: #856404; font-family: monospace; word-break: break-all; font-size: 0.9em;">
+                  AIzaSyDx1234567890abcdefghijklmnopqrstuvwx...
+                </p>
+              </div>
+              <p style="color: #666; margin-top: 10px;">이 코드 옆에 <span class="highlight">📋 (복사)</span> 버튼이 있을 겁니다!</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">6️⃣ API 키 복사</h3>
+          
+          <div class="instruction">
+            <p>📋 복사 버튼을 클릭하세요.</p>
+            <div class="visual-guide">
+              <div style="background: #d1fae5; padding: 20px; border-radius: 8px;">
+                <p style="color: #047857; font-weight: bold;">✅ "Copied to clipboard" 메세지가 나타나면 성공!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="success">
+            <div class="success-title">✅ API 키 준비 완료!</div>
+            <p>이제 터미널로 돌아가서 3단계를 진행하세요!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 문제 해결 -->
+      <div id="method3" class="tab-content" id="troubleshoot">
+        <div class="section">
+          <h2>⚠️ 문제 해결</h2>
+
+          <div class="warning" style="margin-top: 20px;">
+            <div class="warning-title">❌ "빨간 박스를 못 찾았어요"</div>
+            <p>네, 이것이 가장 흔한 문제입니다! 다음을 확인해 보세요:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+              <li style="margin: 8px 0;">✅ 페이지가 완전히 로드되었나요? (하얀 화면이 아닌가요?)</li>
+              <li style="margin: 8px 0;">✅ Google 로그인을 완료했나요?</li>
+              <li style="margin: 8px 0;">✅ 주소창에 "aistudio.google.com" 이 정확히 입력되었나요?</li>
+              <li style="margin: 8px 0;">✅ 버튼이 회색/비활성화 상태는 아닌가요?</li>
+            </ul>
+          </div>
+
+          <div class="warning">
+            <div class="warning-title">❌ "페이지가 로드되지 않아요"</div>
+            <p>브라우저의 새로고침 버튼을 클릭하세요:</p>
+            <p style="margin: 10px 0; font-weight: bold;">Mac: Cmd + R</p>
+            <p>또는 메뉴 → 새로고침</p>
+          </div>
+
+          <div class="warning">
+            <div class="warning-title">❌ "로그인이 안 되어요"</div>
+            <p>다음을 확인하세요:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+              <li style="margin: 8px 0;">Gmail 주소가 정확한가요?</li>
+              <li style="margin: 8px 0;">비밀번호가 정확한가요?</li>
+              <li style="margin: 8px 0;">Caps Lock이 켜져 있지는 않나요?</li>
+              <li style="margin: 8px 0;">아니면 다른 Google 계정으로 로그인해 보세요</li>
+            </ul>
+          </div>
+
+          <div class="warning">
+            <div class="warning-title">❌ "코드를 복사했는데 터미널에 안 붙여진다"</div>
+            <p>터미널에 마우스 우클릭 후 "Paste" 또는 "붙여넣기"를 선택하세요.</p>
+            <p style="margin-top: 10px; color: #333;">키보드의 Cmd+V는 터미널에서 작동하지 않을 수 있습니다.</p>
+          </div>
+
+          <div style="background: #e0f2fe; border-left: 4px solid #0284c7; padding: 15px; border-radius: 6px; margin-top: 20px;">
+            <div style="font-weight: bold; color: #0c4a6e; margin-bottom: 8px;">💡 여전히 안 되나요?</div>
+            <p style="color: #0c4a6e;">
+              아래 단순화된 방법을 시도해 보세요:
+            </p>
+            <ol style="margin-left: 20px; margin-top: 10px; color: #0c4a6e;">
+              <li style="margin: 8px 0;">Chrome이나 Safari 브라우저를 사용하세요 (엣지나 파이어폭스는 가끔 문제가 있을 수 있음)</li>
+              <li style="margin: 8px 0;">다시 로그인을 시도하세요</li>
+              <li style="margin: 8px 0;">다른 Google 계정이 있으면 그것으로 시도해 보세요</li>
+              <li style="margin: 8px 0;">브라우저 캐시를 지우고 다시 시도하세요 (Safari: Develop → Clear Caches)</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>🔑 Google Gemini API 키 발급 가이드 v1.0</p>
+      <p style="margin-top: 8px; font-size: 0.9em;">질문이 있으시면 위의 "문제 해결" 탭을 확인하세요</p>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabName) {
+      // 모든 탭 콘텐츠 숨김
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => {
+        content.classList.remove('active');
+      });
+
+      // 모든 탭 버튼 비활성화
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // 선택한 탭 활성화
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

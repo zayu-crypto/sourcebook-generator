@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sourcebook Generator - 빠른 시작 가이드</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1em;
+      opacity: 0.95;
+    }
+
+    .content {
+      padding: 40px 20px;
+    }
+
+    .step {
+      margin-bottom: 40px;
+      padding: 25px;
+      background: #f9fafb;
+      border-left: 4px solid #667eea;
+      border-radius: 8px;
+    }
+
+    .step-number {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: bold;
+      margin-right: 15px;
+      font-size: 1.1em;
+    }
+
+    .step h2 {
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .step p {
+      margin: 10px 0;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    .command {
+      background: #1e293b;
+      color: #10b981;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      margin: 15px 0;
+      overflow-x: auto;
+      user-select: all;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
+    .tip {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 15px 0;
+    }
+
+    .tip-title {
+      font-weight: bold;
+      color: #d97706;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      background: #dbeafe;
+      border-left: 4px solid #3b82f6;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 15px 0;
+    }
+
+    .note-title {
+      font-weight: bold;
+      color: #1e40af;
+      margin-bottom: 8px;
+    }
+
+    .link {
+      color: #667eea;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .link:hover {
+      color: #764ba2;
+    }
+
+    .button {
+      display: inline-block;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 15px;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: #059669;
+      transform: translateY(-2px);
+    }
+
+    .checklist {
+      list-style: none;
+      margin: 15px 0;
+    }
+
+    .checklist li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+
+    .checklist li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .footer {
+      background: #f9fafb;
+      padding: 20px;
+      text-align: center;
+      color: #999;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .success {
+      background: #d1fae5;
+      border-left-color: #10b981;
+      color: #047857;
+    }
+
+    .emoji {
+      display: inline-block;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><span style="font-size: 1.2em;">📚</span> Sourcebook Generator</h1>
+      <p>개발 지식 없이 5분 안에 시작하기!</p>
+    </div>
+
+    <div class="content">
+      <!-- Step 1 -->
+      <div class="step">
+        <h2>
+          <span class="step-number">1</span>
+          Google Gemini API 키 발급받기
+        </h2>
+        <p>🎯 예상 시간: 2분</p>
+
+        <div class="tip">
+          <div class="tip-title">💡 팁</div>
+          새로운 브라우저 탭이나 창에서 다음 단계를 따라하세요.
+        </div>
+
+        <ol style="margin-left: 20px;">
+          <li style="margin: 10px 0;">
+            다음 링크를 복사해서 브라우저 주소창에 붙여넣기:
+            <div class="command">https://aistudio.google.com/app/apikey</div>
+          </li>
+          <li style="margin: 10px 0;">
+            💻 웹사이트가 열리면, 영어로 되어 있습니다. (걱정 마세요, 버튼만 클릭하면 됩니다)
+          </li>
+          <li style="margin: 10px 0;">
+            빨간색 <strong>"Get API key"</strong> 버튼을 클릭합니다
+          </li>
+          <li style="margin: 10px 0;">
+            "<strong>Create new secret key</strong>" 또는 "<strong>Create API Key</strong>"를 클릭합니다
+          </li>
+          <li style="margin: 10px 0;">
+            <strong style="color: #ef4444;">빨간 박스 안의 긴 코드</strong>를 마우스로 선택 후 복사합니다 (Cmd+C)
+            <div class="note">
+              <div class="note-title">📝 예시 형태</div>
+              "AIzaSyDx... " 또는 "sk-..." 형태입니다
+            </div>
+          </li>
+          <li style="margin: 10px 0;">
+            👇 다음 단계로 넘어갑니다 (이 창 유지)
+          </li>
+        </ol>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <h2>
+          <span class="step-number">2</span>
+          터미널(Terminal) 열기
+        </h2>
+        <p>🎯 예상 시간: 1분</p>
+
+        <p>Mac의 터미널을 열어봅시다. 매우 간단합니다!</p>
+
+        <ul class="checklist">
+          <li>맥 화면의 왼쪽 상단 "돋보기" 🔍 아이콘 클릭</li>
+          <li style="margin-top: 10px;">
+            "terminal" 또는 "터미널"을 입력
+          </li>
+          <li style="margin-top: 10px;">
+            <strong>"Terminal.app"</strong> 클릭하면 터미널이 열립니다
+          </li>
+        </ul>
+
+        <div class="note">
+          <div class="note-title">📝 터미널 화면</div>
+          검은색 창이 나타나고 마우스 커서가 깜빡여야 하면 정상입니다.
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <h2>
+          <span class="step-number">3</span>
+          설치 스크립트 실행
+        </h2>
+        <p>🎯 예상 시간: 2분</p>
+
+        <p>터미널에 아래 한 줄을 복사해서 붙여넣은 후 엔터를 누르면 됩니다.</p>
+
+        <div class="command">/Users/ext03.2511002/Downloads/sourcebook-generator/setup.sh</div>
+
+        <p style="margin-top: 15px;">자세한 단계:</p>
+        <ol style="margin-left: 20px;">
+          <li style="margin: 10px 0;">
+            위의 <strong style="background: #f3f4f6; padding: 2px 6px;">회색 상자</strong> 전체를 마우스로 선택합니다
+          </li>
+          <li style="margin: 10px 0;">
+            <strong>Cmd+C</strong> (Command + C) 를 눌러 복사합니다
+          </li>
+          <li style="margin: 10px 0;">
+            터미널 창을 클릭합니다
+          </li>
+          <li style="margin: 10px 0;">
+            <strong>Cmd+V</strong> (Command + V) 를 눌러 붙여넣습니다
+          </li>
+          <li style="margin: 10px 0;">
+            <strong>Enter</strong> (⏎) 를 누릅니다
+          </li>
+        </ol>
+
+        <div class="tip">
+          <div class="tip-title">💡 팁</div>
+          "모든 걸 설정하는 중..." 이라는 메세지가 보이면 정상 진행 중입니다.
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step">
+        <h2>
+          <span class="step-number">4</span>
+          API 키 붙여넣기
+        </h2>
+        <p>🎯 예상 시간: 30초</p>
+
+        <p>터미널이 다음과 같이 물어볼 겁니다:</p>
+
+        <div class="command">복사한 API 키를 붙여넣기 (마우스 우클릭 후 Paste 선택):</div>
+
+        <p style="margin-top: 15px;">이때:</p>
+        <ol style="margin-left: 20px;">
+          <li style="margin: 10px 0;">
+            1단계에서 복사한 <strong style="color: #ef4444;">긴 코드</strong>를 붙여넣습니다
+          </li>
+          <li style="margin: 10px 0;">
+            터미널에서 마우스 우클릭 → <strong>"Paste"</strong> 선택
+          </li>
+          <li style="margin: 10px 0;">
+            <strong>Enter</strong> (⏎) 를 누릅니다
+          </li>
+        </ol>
+
+        <div class="note">
+          <div class="note-title">📝 참고</div>
+          붙여넣은 코드가 화면에 보이지 않을 수도 있습니다. 괜찮습니다!<br />
+          그냥 Enter를 누르면됩니다.
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step success">
+        <h2>
+          <span class="step-number">5</span>
+          🎉 모두 완료! 사용 시작
+        </h2>
+        <p>🎯 예상 시간: 즉시</p>
+
+        <p>
+          터미널에 다음과 같은 메세지가 보이면 준비가 완료된 것입니다:
+        </p>
+
+        <div class="command">🚀 Sourcebook Generator Server starting...
+📡 Available at http://localhost:5000</div>
+
+        <p style="margin-top: 20px; font-size: 1.1em;">
+          이제 브라우저에서 다음 주소를 열어서 사용하세요:
+        </p>
+
+        <div style="
+          background: white;
+          border: 2px solid #10b981;
+          padding: 20px;
+          border-radius: 8px;
+          text-align: center;
+          margin: 20px 0;
+        ">
+          <div style="font-size: 1.2em; font-weight: bold; color: #667eea;">
+            👉 http://localhost:8000
+          </div>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">💡 사용 방법</div>
+          <ol style="margin-left: 20px;">
+            <li style="margin: 10px 0;">
+              Learning Outcome (학습 목표)을 텍스트 상자에 입력합니다
+            </li>
+            <li style="margin: 10px 0;">
+              "카드 생성" 버튼을 클릭합니다
+            </li>
+            <li style="margin: 10px 0;">
+              30초 정도 기다리면 AI가 10개의 카드를 만들어줍니다
+            </li>
+            <li style="margin: 10px 0;">
+              필요한 카드들을 클릭해서 선택하세요
+            </li>
+            <li style="margin: 10px 0;">
+              "PDF로 내보내기" 버튼을 클릭해서 다운로드합니다
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Finishing -->
+      <div class="step">
+        <h2>
+          <span class="step-number">⚠️</span>
+          중요: 터미널 창은 계속 열어두세요
+        </h2>
+
+        <p style="color: #dc2626; font-weight: bold;">
+          ❌ 절대 터미널 창을 닫지 마세요!
+        </p>
+
+        <p style="margin-top: 15px;">
+          Sourcebook Generator는 터미널에서 계속 실행되어야 합니다.
+        </p>
+
+        <div class="note">
+          <div class="note-title">📝 종료하기</div>
+          사용을 마치고 종료하고 싶을 때:
+          <div class="command" style="margin-top: 10px;">
+            Ctrl + C
+            <span style="color: #999;">(Control 키와 C를 동시에 누른 후 터미널 창 닫기)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="step">
+        <h2>
+          <span class="step-number">❓</span>
+          자주 묻는 질문
+        </h2>
+
+        <h3 style="margin-top: 20px; color: #667eea; font-weight: bold;">
+          Q: "command not found" 오류가 나왔어요
+        </h3>
+        <p>
+          A: 명령어를 다시 복사해서 붙여넣어 보세요. 특별히 주의할 점은 정확히 복사하는 것입니다.
+        </p>
+
+        <h3 style="margin-top: 20px; color: #667eea; font-weight: bold;">
+          Q: API 키를 어디서 찾나요?
+        </h3>
+        <p>
+          A: https://aistudio.google.com/app/apikey 에서 "Create new secret key" 버튼을 클릭하면 빨간 박스에 코드가 나타납니다.
+        </p>
+
+        <h3 style="margin-top: 20px; color: #667eea; font-weight: bold;">
+          Q: 카드 생성이 느려요
+        </h3>
+        <p>
+          A: AI가 카드를 만드는 데 보통 20-40초 정도 걸립니다. 기다려주세요!
+        </p>
+
+        <h3 style="margin-top: 20px; color: #667eea; font-weight: bold;">
+          Q: 다시 사용하려면?
+        </h3>
+        <p>
+          A: 다음 번에는 그냥 터미널을 다시 열고 위의 명령어를 입력하면 됩니다!
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>⚡ 파이썬 기반 Sourcebook Generator v1.0</p>
+      <p style="margin-top: 8px; font-size: 0.9em;">개발 지식이 없어도 사용할 수 있습니다!</p>
+    </div>
+  </div>
+</body>
+</html>

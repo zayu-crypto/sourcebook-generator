@@ -1,0 +1,10 @@
+{
+  "name": "sourcebook-generator",
+  "version": "1.0.0",
+  "description": "Learning Outcome 기반 Sourcebook 자동 생성 도구",
+  "scripts": {
+    "start:server": "cd server && npm install && npm start",
+    "start:client": "cd client && python -m http.server 8000",
+    "dev:server": "cd server && npm install && npm run dev"
+  }
+}

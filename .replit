@@ -1,0 +1,12 @@
+run = "python3 server/app.py"
+modules = ["python-3.10"]
+hidden = [".git", "__pycache__"]
+
+[env]
+PYTHONUNBUFFERED = "1"
+
+[nix]
+channel = "stable-22_11"
+
+[unitTest]
+language = "python3"
