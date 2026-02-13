@@ -15,6 +15,16 @@ const selectedCount = document.getElementById("selectedCount");
 const exportPdfBtn = document.getElementById("exportPdfBtn");
 const exportJsonBtn = document.getElementById("exportJsonBtn");
 
+// Guide toggle
+const guideToggle = document.getElementById("guideToggle");
+const guideBody = document.getElementById("guideBody");
+const guideArrow = document.getElementById("guideArrow");
+
+guideToggle.addEventListener("click", () => {
+  guideBody.classList.toggle("open");
+  guideArrow.classList.toggle("open");
+});
+
 // Event Listeners
 generateBtn.addEventListener("click", generateCards);
 exportPdfBtn.addEventListener("click", exportToPDF);

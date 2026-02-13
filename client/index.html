@@ -20,11 +20,48 @@
       <!-- Input Section -->
       <section class="input-section">
         <h2>1단계: Learning Outcome 입력</h2>
+        <div class="input-guide">
+          <div class="guide-header" id="guideToggle">
+            <span class="guide-icon">?</span>
+            <span>좋은 Learning Outcome 작성법</span>
+            <span class="guide-arrow" id="guideArrow">&#9662;</span>
+          </div>
+          <div class="guide-body" id="guideBody">
+            <p class="guide-desc">카드의 품질은 입력한 Outcome의 구체성에 달려 있습니다. 아래 3가지를 포함해주세요:</p>
+            <div class="guide-items">
+              <div class="guide-item">
+                <div class="guide-item-label">1. 주제 영역</div>
+                <div class="guide-item-desc">어떤 분야의 학습인가요?</div>
+                <div class="guide-item-example">예: "컴퓨터-인간 상호작용", "근현대 건축사", "유전공학의 윤리"</div>
+              </div>
+              <div class="guide-item">
+                <div class="guide-item-label">2. 도달 목표</div>
+                <div class="guide-item-desc">학습자가 무엇을 할 수 있게 되나요? (~를 이해한다, ~를 설명할 수 있다, ~를 제안할 수 있다)</div>
+                <div class="guide-item-example">예: "새로운 매체의 입출력 장치 특성을 이해하고, 이에 맞는 인터랙션 대안을 제시할 수 있다"</div>
+              </div>
+              <div class="guide-item">
+                <div class="guide-item-label">3. 구체적 범위</div>
+                <div class="guide-item-desc">어디까지 다루나요? 구체적인 키워드나 하위 주제를 포함해주세요.</div>
+                <div class="guide-item-example">예: "햅틱 엔진과 포스터치, AR Glass의 새로운 입력장치"</div>
+              </div>
+            </div>
+            <div class="guide-examples">
+              <div class="guide-example bad">
+                <div class="guide-example-label">&#10007; 너무 추상적</div>
+                <div>"디자인을 잘 이해한다"</div>
+              </div>
+              <div class="guide-example good">
+                <div class="guide-example-label">&#10003; 구체적이고 좋음</div>
+                <div>"컴퓨터와 인간의 상호작용 과정을 이해하고, 디지털 제품이 작동하는 기본적인 원리와 지식을 안다. 인간에 대한 이해, 입출력장치, UI/UX 컴포넌트 단위의 기본 지식을 안다. 새로운 매체의 입출력 장치 특성을 이해하고, 이에 맞는 인터랙션 대안을 제시할 수 있다."</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <textarea
           id="outcomeInput"
           class="textarea"
-          placeholder="예: 컴퓨터-인간 상호작용에 대한 기본 이해력&#10;&#10;컴퓨터와 인간의 상호작용 과정을 이해하고, 디지털 제품이 작동하는 기본적인 원리와 지식을 안다."
-          rows="8"
+          placeholder="[주제 영역]&#10;예: 컴퓨터-인간 상호작용에 대한 기본 이해력&#10;&#10;[도달 목표]&#10;예: 컴퓨터와 인간의 상호작용 과정을 이해하고, 디지털 제품이 작동하는 기본적인 원리와 지식을 안다.&#10;&#10;[구체적 범위]&#10;예: 인간에 대한 이해, 입출력장치, UI/UX 컴포넌트. 새로운 매체의 입출력 장치 특성(햅틱 엔진, AR Glass 등)"
+          rows="10"
         ></textarea>
         <button id="generateBtn" class="btn btn-primary">카드 생성 (10개)</button>
         <div id="loadingMessage" class="loading-message" style="display: none;">
